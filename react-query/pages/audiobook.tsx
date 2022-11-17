@@ -28,7 +28,7 @@ export default function Audiobook() {
   const { data, isLoading, isError } = useGQLQuery(['abc'], GQL_EXAMPLE, null, {
     refetchOnWindowFocus: false,
     staleTime: 60 * 60 * 1000
-  });
+  })
 
   if (isLoading || isError) {
     return <div>Loading</div>;
