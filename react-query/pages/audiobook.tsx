@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, request } from 'graphql-request';
 import Link from 'next/link';
-import { useGQLQuery } from './useGQLQuery';
+import { useGQLQuery, graphQLClient } from './useGQLQuery';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import styles from '../styles/Home.module.css';
 import { GetServerSidePropsContext } from 'next';
@@ -13,10 +13,9 @@ const GQL_EXAMPLE = gql`
     }
   }
 `;
-const endpoint = process.env.NEXT_PUBLIC_API_GQL;
 
 const getPast = async () => {
-  const data = await request(`${endpoint}`, GQL_EXAMPLE);
+  const data = await graphQLClient.request(GQL_EXAMPLE);
   return data;
 };
 
@@ -31,8 +30,7 @@ export async function getServerSideProps({}: GetServerSidePropsContext) {
   };
 }
 
-export default function Audiobook({ props }: any) {
-  console.log('111', props);
+export default function Audiobook() {
   const { data, isLoading, isError } = useGQLQuery(['abc'], GQL_EXAMPLE, null, {
     refetchOnWindowFocus: false,
     staleTime: 60 * 60 * 1000
