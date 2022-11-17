@@ -22,8 +22,6 @@ export default function Home() {
     return <div>Loading</div>;
   }
 
-  // console.log(data.program.cooperate);
-
   return (
     <div className={styles.container}>
       <Head>

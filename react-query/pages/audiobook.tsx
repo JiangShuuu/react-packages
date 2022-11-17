@@ -1,5 +1,5 @@
 import React from 'react';
-import { gql } from 'graphql-request';
+import { gql, request } from 'graphql-request';
 import Link from 'next/link';
 import { useGQLQuery } from './useGQLQuery';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -8,27 +8,35 @@ import { GetServerSidePropsContext } from 'next';
 
 const GQL_EXAMPLE = gql`
   query {
-    audiobook(id: 76) {
+    audiobook(id: 130) {
       title
     }
   }
 `;
+const endpoint = process.env.NEXT_PUBLIC_API_GQL;
+
+const getPast = async () => {
+  const data = await request(`${endpoint}`, GQL_EXAMPLE);
+  return data;
+};
 
 export async function getServerSideProps({}: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
-
-  // await queryClient.prefetchQuery();
+  await queryClient.prefetchQuery(['abc'], getPast);
 
   return {
-    dehydratedState: dehydrate(queryClient)
+    props: {
+      dehydratedState: dehydrate(queryClient)
+    }
   };
 }
 
-export default function Audiobook() {
+export default function Audiobook({ props }: any) {
+  console.log('111', props);
   const { data, isLoading, isError } = useGQLQuery(['abc'], GQL_EXAMPLE, null, {
     refetchOnWindowFocus: false,
     staleTime: 60 * 60 * 1000
-  })
+  });
 
   if (isLoading || isError) {
     return <div>Loading</div>;

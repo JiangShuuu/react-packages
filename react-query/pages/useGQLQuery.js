@@ -1,5 +1,5 @@
-import {useQuery} from '@tanstack/react-query'
 import { GraphQLClient} from 'graphql-request';
+import { useQuery } from '@tanstack/react-query'
 
 const TOKEN = process.env.NEXT_PUBLIC_TOKEN;
 const endpoint = process.env.NEXT_PUBLIC_API_GQL;
