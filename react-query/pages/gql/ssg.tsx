@@ -1,9 +1,9 @@
 import React from 'react';
 import { gql, request } from 'graphql-request';
 import Link from 'next/link';
-import { useGQLQuery, graphQLClient } from './useGQLQuery';
+import { useGQLQuery, graphQLClient } from '../useGQLQuery';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import styles from '../styles/Home.module.css';
+
 import { GetServerSidePropsContext } from 'next';
 
 const GQL_EXAMPLE = gql`
@@ -30,7 +30,7 @@ export async function getServerSideProps({}: GetServerSidePropsContext) {
   };
 }
 
-export default function Audiobook() {
+export default function ssr() {
   const { data, isLoading, isError } = useGQLQuery(['abc'], GQL_EXAMPLE, null, {
     refetchOnWindowFocus: false,
     staleTime: 60 * 60 * 1000
@@ -41,12 +41,19 @@ export default function Audiobook() {
   }
 
   return (
-    <main className={styles.main}>
-      <button>
-        <Link href='/'>index</Link>
-      </button>
-      <div>audiobook</div>
-      <div>{data.audiobook.title}</div>
-    </main>
+    <div>
+      <main>
+        <header>
+          <Link href='/'>Home</Link>
+          <Link href='/axios'>Axios</Link>
+        </header>
+        <nav>
+          <Link href='/gql'>GQL static</Link>
+          <Link href='/gql/ssr'>GQL SSR</Link>
+        </nav>
+        <h1>GQL SSG Data</h1>
+        <div>{data.audiobook.title}</div>
+      </main>
+    </div>
   );
 }
