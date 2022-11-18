@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 export default function ssr({ custmers }: any) {
   const { data, isLoading, isError } = useQuery({
     // cache 名稱
-    queryKey: ['axios_ssg'],
+    queryKey: ['axios_ssr'],
     // fn
     queryFn: getData,
     // ssg 預設 data
