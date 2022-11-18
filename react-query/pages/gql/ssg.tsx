@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, request } from 'graphql-request';
 import Link from 'next/link';
-import { useGQLQuery, graphQLClient } from '../useGQLQuery';
+import { useGQLQuery, graphQLClient } from '../../plugin/useGQLQuery';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 
 import { GetServerSidePropsContext } from 'next';

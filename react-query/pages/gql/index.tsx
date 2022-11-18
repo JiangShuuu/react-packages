@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { gql } from 'graphql-request';
-import { useGQLQuery } from '../useGQLQuery';
+import { useGQLQuery } from '../../plugin/useGQLQuery';
 import Link from 'next/link';
 
 const GQL_EXAMPLE = gql`
