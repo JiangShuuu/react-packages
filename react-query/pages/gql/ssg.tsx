@@ -48,7 +48,7 @@ export default function ssr() {
           <Link href='/axios'>Axios</Link>
         </header>
         <nav>
-          <Link href='/gql'>GQL static</Link>
+          <Link href='/gql'>GQL static Data</Link>
           <Link href='/gql/ssr'>GQL SSR</Link>
         </nav>
         <h1>GQL SSG Data</h1>
