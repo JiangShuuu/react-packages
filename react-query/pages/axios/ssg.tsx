@@ -27,7 +27,7 @@ export default function ssg({ custmers }: any) {
     queryFn: getData,
     // ssg 預設 data
     initialData: custmers,
-    // 快取時間 10秒
+    // 快取保留時間 10秒
     staleTime: 10 * 1000,
     // 切回換視窗即時更新
     refetchOnWindowFocus: true
