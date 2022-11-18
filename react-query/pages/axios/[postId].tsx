@@ -35,7 +35,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const queryClient = new QueryClient();
 
   const { postId } = context.params as IParams;
-  console.log('aaa', postId);
 
   if (!postId) {
     return {
@@ -54,13 +53,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export default function path({ custmers }: any) {
   const router = useRouter();
-  const id = router.query.postId;
+  const { postId } = router.query as IParams;
 
   const { data, isLoading, isError } = useQuery({
     // cache 名稱
-    queryKey: ['axios_ssg_path', id],
+    queryKey: ['axios_ssg_path', postId],
     // fn
-    queryFn: () => getData(id),
+    queryFn: () => getData(postId),
 
     /* 預設 data. 傳入props給的值 (不用hydrate的話要開啟)*/
     initialData: custmers,
