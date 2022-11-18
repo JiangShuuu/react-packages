@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { GetStaticProps } from 'next';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, QueryClient } from '@tanstack/react-query';
 
 const getData = async () => {
   const { data } = await axios.get('https://swapi.dev/api/people/9');
@@ -10,8 +10,9 @@ const getData = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await getData();
-  console.log('abc', data);
+  const queryClient = new QueryClient();
+  const data = await queryClient.fetchQuery(['axios_ssr'], getData);
+
   return {
     props: {
       custmers: data

@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, QueryClient } from '@tanstack/react-query';
 
 const getData = async () => {
   const { data } = await axios.get('https://swapi.dev/api/people/9');
@@ -10,8 +10,9 @@ const getData = async () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await getData();
-  console.log('server', data);
+  const queryClient = new QueryClient();
+  const data = await queryClient.fetchQuery(['axios_ssr'], getData);
+
   return {
     props: {
       custmers: data
@@ -27,8 +28,8 @@ export default function ssr({ custmers }: any) {
     queryFn: getData,
     // ssg 預設 data
     initialData: custmers,
-    // 快取保留時間 10秒
-    staleTime: 10 * 1000,
+    // 快取保留時間 20秒
+    staleTime: 20 * 1000,
     // 切回換視窗,頁面即時更新
     refetchOnWindowFocus: false,
     // 定義輸出資料
