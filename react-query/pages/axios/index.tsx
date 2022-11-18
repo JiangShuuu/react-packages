@@ -30,6 +30,7 @@ export default function index() {
         <nav>
           <Link href='/axios/ssr'>Axios SSR</Link>
           <Link href='/axios/ssg'>Axios SSG</Link>
+          <Link href='/axios/1'>Axios SSG & Path</Link>
         </nav>
         <h1>Axios Static Data</h1>
         <div>{data.name}</div>

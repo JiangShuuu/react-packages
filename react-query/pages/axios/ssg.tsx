@@ -61,6 +61,7 @@ export default function ssg({ custmers }: any) {
         <nav>
           <Link href='/axios'>Axios Static</Link>
           <Link href='/axios/ssr'>Axios SSR</Link>
+          <Link href='/axios/1'>Axios SSG & Path</Link>
         </nav>
         <h1>Axios SSG Data</h1>
         <div>{data.name}</div>
