@@ -3,15 +3,16 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { useQuery, dehydrate, QueryClient } from '@tanstack/react-query';
 import { ParsedUrlQuery } from 'querystring';
+import { useRouter } from 'next/router';
 
 interface IParams extends ParsedUrlQuery {
   postId: string;
 }
 
-// const getData = async (id?: number) => {
-//   const { data } = await axios.get(`https://swapi.dev/api/people/${id}`);
-//   return data;
-// };
+const getData = async (id?: string) => {
+  const { data } = await axios.get(`https://swapi.dev/api/people/${id}`);
+  return data;
+};
 
 export const getStaticPaths = async () => {
   return {
@@ -31,6 +32,8 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const queryClient = new QueryClient();
+
   const { postId } = context.params as IParams;
   console.log('aaa', postId);
 
@@ -40,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     };
   }
 
-  const { data } = await axios.get(`https://swapi.dev/api/people/${postId}`);
+  const data = await queryClient.fetchQuery(['axios_ssg_path', postId], () => getData(postId));
 
   return {
     props: {
@@ -50,6 +53,32 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export default function path({ custmers }: any) {
+  const router = useRouter();
+  const id = router.query.postId;
+
+  const { data, isLoading, isError } = useQuery({
+    // cache 名稱
+    queryKey: ['axios_ssg_path', id],
+    // fn
+    queryFn: () => getData(id),
+
+    /* 預設 data. 傳入props給的值 (不用hydrate的話要開啟)*/
+    initialData: custmers,
+
+    // 快取保留時間 10秒
+    staleTime: 10 * 1000,
+    // 切回換視窗即時更新
+    refetchOnWindowFocus: true
+  });
+
+  if (isLoading) {
+    return <h1>isLoading</h1>;
+  }
+
+  if (isError) {
+    return <h1>Error</h1>;
+  }
+
   return (
     <div>
       <main>
@@ -70,7 +99,7 @@ export default function path({ custmers }: any) {
         </nav>
         <h1>Axios SSG & Paths Data</h1>
 
-        <div>{JSON.stringify(custmers)}</div>
+        <div>{JSON.stringify(data)}</div>
       </main>
     </div>
   );
