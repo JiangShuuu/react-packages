@@ -29,8 +29,15 @@ export default function ssr({ custmers }: any) {
     initialData: custmers,
     // 快取保留時間 10秒
     staleTime: 10 * 1000,
-    // 切回換視窗即時更新
-    refetchOnWindowFocus: true
+    // 切回換視窗,頁面即時更新
+    refetchOnWindowFocus: false,
+    // 定義輸出資料
+    select: (data) => {
+      return {
+        id: data.name,
+        num: data.height
+      };
+    }
   });
 
   if (isLoading) {
@@ -53,7 +60,11 @@ export default function ssr({ custmers }: any) {
           <Link href='/axios/ssg'>Axios SSG</Link>
         </nav>
         <h1>Axios SSR Data</h1>
-        <div>{data.name}</div>
+        <div>{data.id}</div>
+        <div>{data.num}</div>
+        <div>
+          <p>{JSON.stringify(data)}</p>
+        </div>
       </main>
     </div>
   );
