@@ -2,24 +2,24 @@ import Item from '../../components/intersection/Item';
 import { useIntersectionObserver } from '../../hooks/intersection/useIntersectionObserver';
 import { useState } from 'react';
 
-// function useInView() {
-//   const [isInView, setIsInView] = useState(null);
+function useInView() {
+  const [isInView, setIsInView] = useState(null);
 
-//   const handleInView = (entries, observe) => {
-//     entries.forEach((entry) => {
-//       setIsInView(entry.isIntersecting);
-//     });
-//   };
+  const handleInView = (entries: any, observe: any) => {
+    entries.forEach((entry: any) => {
+      setIsInView(entry.isIntersecting);
+    });
+  };
 
-//   const targetRef = useIntersectionObserver(handleInView);
+  const targetRef = useIntersectionObserver(handleInView);
 
-//   return [targetRef, isInView];
-// }
+  return [targetRef, isInView];
+}
 
 export default function App() {
   const [colorToken, setColorToken] = useState('_100');
   const [isGreenBoxAround, setIsGreenBoxAround] = useState(false);
-  // const [blueBoxRef, isBlueBoxInView] = useInView();
+  const [blueBoxRef, isBlueBoxInView] = useInView();
 
   // Yellow
   const yellowBoxRef = useIntersectionObserver(handleYellowBoxIntersection, {
@@ -71,12 +71,12 @@ export default function App() {
         <Item props='salmon' />
         <Item props={`yellow${colorToken}`} ref={yellowBoxRef} />
         <Item props={`green_700`} ref={greenBoxRef} />
-        {/* <Item props={`blue_700`} ref={blueBoxRef} /> */}
+        <Item props={`blue_700`} ref={blueBoxRef} />
         <Item props='salmon' />
         <Item props='salmon' />
       </div>
       <p>{isGreenBoxAround ? 'InGreenArea' : 'OutGreen'}</p>
-      {/* <p>{isBlueBoxInView ? 'InBlueArea' : 'OutBlue'}</p> */}
+      <p>{isBlueBoxInView ? 'InBlueArea' : 'OutBlue'}</p>
     </div>
   );
 }

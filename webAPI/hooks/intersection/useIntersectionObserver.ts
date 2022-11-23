@@ -1,10 +1,6 @@
 import { FC, useEffect, useRef } from "react";
 
-interface Intersection {
-  cb: IntersectionObserverCallback
-}
-
-export function useIntersectionObserver(cb:IntersectionObserverCallback, options:any) {
+export function useIntersectionObserver(cb: IntersectionObserverCallback, options?:any)  {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const targetRef = useRef<Element | null>(null);
 
