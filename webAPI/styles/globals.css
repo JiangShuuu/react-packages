@@ -70,3 +70,32 @@ a:hover {
   margin: 0.5rem 0;
   line-height: 0px;
 }
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.salmon {
+  background-color: salmon;
+}
+
+.yellow_100 {
+  background-color: #eded00;
+}
+
+.yellow_400 {
+  background-color: #c9c900;
+}
+
+.yellow_700 {
+  background-color: #abab00;
+}
+
+.green_700 {
+  background-color: #2f7d4c;
+}
+
+.blue_700 {
+  background-color: blue;
+}
