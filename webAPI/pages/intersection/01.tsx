@@ -1,9 +1,9 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import useBookSearch from '../../hooks/intersection/useBookSearch';
 
 export default function Intersection01() {
   const [query, setQuery] = useState('test');
-  const { books, setPageNumber, loading, error, lastBook } = useBookSearch(query);
+  const { books, setPageNumber, loading, error, lastBookRef } = useBookSearch(query);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -18,7 +18,7 @@ export default function Intersection01() {
         {books.map((book, idx) => {
           if (books.length === idx + 1) {
             return (
-              <div ref={lastBook} className='list_item' key={idx}>
+              <div ref={lastBookRef} className='list_item' key={idx}>
                 {book}
               </div>
             );

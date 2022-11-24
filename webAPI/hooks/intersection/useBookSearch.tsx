@@ -8,10 +8,12 @@ export default function useBookSearch(query: any) {
   const [hasMore, setHasMore] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
 
+  // before data fetch
   useEffect(() => {
     setBooks([]);
   }, [query]);
 
+  // data
   useEffect(() => {
     setLoading(true);
     setError(false);
@@ -37,8 +39,11 @@ export default function useBookSearch(query: any) {
     return () => cancel();
   }, [query, pageNumber]);
 
+  // observer Ref
   const observer = useRef<IntersectionObserver | null>(null);
-  const lastBook = useCallback(
+
+  // lastDom Ref
+  const lastBookRef = useCallback(
     (node: any) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
@@ -54,5 +59,5 @@ export default function useBookSearch(query: any) {
     [loading, hasMore]
   );
 
-  return { loading, error, books, lastBook, pageNumber, setPageNumber };
+  return { loading, error, books, lastBookRef, pageNumber, setPageNumber };
 }
