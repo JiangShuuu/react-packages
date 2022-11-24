@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
 
-export default function useBookSearch(query: any, pageNumber: number) {
+export default function useBookSearch(query: any) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [books, setBooks] = useState([]);
   const [hasMore, setHasMore] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
     setBooks([]);
@@ -36,5 +37,22 @@ export default function useBookSearch(query: any, pageNumber: number) {
     return () => cancel();
   }, [query, pageNumber]);
 
-  return { loading, error, books, hasMore };
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastBook = useCallback(
+    (node: any) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((enteries) => {
+        if (enteries[0].isIntersecting && hasMore) {
+          console.log('Visible');
+          setPageNumber((prevPageNumber: number) => prevPageNumber + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [loading, hasMore]
+  );
+
+  return { loading, error, books, lastBook, pageNumber, setPageNumber };
 }

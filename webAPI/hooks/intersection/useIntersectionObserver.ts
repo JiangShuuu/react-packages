@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback, useState} from "react";
 
 export function useIntersectionObserver(cb: IntersectionObserverCallback, options?:any)  {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -24,4 +24,26 @@ export function useIntersectionObserver(cb: IntersectionObserverCallback, option
   }, []);
 
   return targetRef;
+}
+
+export function useIntersectionInfinity(loading:boolean, hasMore:boolean) {
+  const [pageNumber, setPageNumber] = useState(1);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastBook = useCallback(
+    (node: any) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((enteries) => {
+        if (enteries[0].isIntersecting && hasMore) {
+          console.log('Visible');
+          setPageNumber((prevPageNumber:number) => prevPageNumber + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [loading, hasMore]
+  )
+
+  return lastBook
 }
