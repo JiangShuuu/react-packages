@@ -6,7 +6,7 @@ export default function Intersection01() {
   const [pageNumber, setPageNumber] = useState(1);
   const { books, hasMore, loading, error } = useBookSearch(query, pageNumber);
 
-  const observer = useRef();
+  const observer = useRef<IntersectionObserver | null>(null);
   const lastBookElementRef = useCallback(
     (node: any) => {
       if (loading) return;
