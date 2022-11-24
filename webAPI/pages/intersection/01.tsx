@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import useBookSearch from '../../hooks/intersection/useBookSearch';
 
 export default function Intersection01() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState('test');
   const [pageNumber, setPageNumber] = useState(1);
   const { books, hasMore, loading, error } = useBookSearch(query, pageNumber);
 

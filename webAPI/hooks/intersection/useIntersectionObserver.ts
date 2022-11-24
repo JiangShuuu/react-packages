@@ -8,7 +8,7 @@ export function useIntersectionObserver(cb: IntersectionObserverCallback, option
     if (window) {
       observerRef.current = new IntersectionObserver(cb, {
         ...options,
-        root: options.root.current || null
+        root: options?.root?.current || null
       });
       if (targetRef.current) {
         observerRef.current.observe(targetRef.current);
