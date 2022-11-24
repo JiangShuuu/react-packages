@@ -18,7 +18,7 @@ export default function useBookSearch(query: any, pageNumber: number) {
     axios({
       method: 'GET',
       url: 'http://openlibrary.org/search.json',
-      params: { q: query, page: pageNumber },
+      params: { q: query, page: pageNumber, limit: 20 },
       cancelToken: new axios.CancelToken((c) => (cancel = c))
     })
       .then((res) => {
@@ -26,7 +26,6 @@ export default function useBookSearch(query: any, pageNumber: number) {
         setBooks((prevBooks): any => [...prevBooks, ...newBooks]);
         setHasMore(res.data.docs.length > 0);
         setLoading(false);
-        // console.log(res.data);
         // console.log(res.data);
       })
       .catch((e) => {
