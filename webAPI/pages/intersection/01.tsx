@@ -18,7 +18,7 @@ export default function Intersection01() {
         }
       });
       if (node) observer.current.observe(node);
-      console.log(node);
+      // console.log(node);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [loading, hasMore]
@@ -31,6 +31,7 @@ export default function Intersection01() {
 
   return (
     <>
+      <h1>Infinity Loop</h1>
       <input type='text' value={query} onChange={handleSearch} />
       <div className='list'>
         {books.map((book, idx) => {

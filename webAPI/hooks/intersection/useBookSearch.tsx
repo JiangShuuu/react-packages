@@ -22,10 +22,11 @@ export default function useBookSearch(query: any, pageNumber: number) {
       cancelToken: new axios.CancelToken((c) => (cancel = c))
     })
       .then((res) => {
-        setBooks((prevBooks): any => [...prevBooks, ...res.data.docs.map((b: any) => b.title)]);
+        const newBooks = [...res.data.docs.map((b: any) => b.title)];
+        setBooks((prevBooks): any => [...prevBooks, ...newBooks]);
         setHasMore(res.data.docs.length > 0);
         setLoading(false);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((e) => {
         if (axios.isCancel(e)) return;
