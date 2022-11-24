@@ -99,3 +99,8 @@ a:hover {
 .blue_700 {
   background-color: blue;
 }
+
+
+.list_item {
+  border-bottom: 1px solid;
+}

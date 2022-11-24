@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export function useIntersectionObserver(cb: IntersectionObserverCallback, options?:any)  {
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -8,7 +8,7 @@ export function useIntersectionObserver(cb: IntersectionObserverCallback, option
     if (window) {
       observerRef.current = new IntersectionObserver(cb, {
         ...options,
-        root: options?.root?.current || null
+        root: options.root.current || null
       });
       if (targetRef.current) {
         observerRef.current.observe(targetRef.current);
