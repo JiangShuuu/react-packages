@@ -5,10 +5,10 @@ import axios from 'axios';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const fetchData = ({ pageParam = 1 }) => {
-  return axios.get(`http://openlibrary.org/search.json?q=tests&limit=5&page=${pageParam}`);
+  return axios.get(`http://openlibrary.org/search.json?q=tests&limit=10&page=${pageParam}`);
 };
 
-export default function infinityquery() {
+export default function InfinityqueryScroll() {
   const { isLoading, isError, error, data, hasNextPage, fetchNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery(['books'], fetchData, {
     staleTime: 10 * 1000,
     refetchOnWindowFocus: false,
@@ -31,15 +31,16 @@ export default function infinityquery() {
   return (
     <Infinity>
       <main className='mains'>
-        <h2>Axios useInfinityQuery Button</h2>
+        <h2>Axios useInfinityQuery ScrollBar</h2>
         <nav>
           <Link href='/'>Home</Link>
-          <Link href='/axios/use/infinityqueryscroll'>infinityScrollBar</Link>
+          <Link href='/axios/use/infinityquery'>infinityButton</Link>
         </nav>
       </main>
       <div className='content'>
         <div className='box-1'>
           {isLoading && <h2>Loading...</h2>}
+
           {isError && <h2>Error...</h2>}
           {books &&
             books.map((item: any, idx: number) => {
@@ -52,12 +53,7 @@ export default function infinityquery() {
                 </Fragment>
               );
             })}
-          <div className='btn'>
-            <button disabled={!hasNextPage} onClick={getmore}>
-              Load More
-            </button>
-            <div>{isFetching && isFetchingNextPage ? 'Fetching...' : null}</div>
-          </div>
+          {isFetching && isFetchingNextPage && <div>FetchingMore...</div>}
         </div>
       </div>
     </Infinity>
@@ -78,6 +74,8 @@ const Infinity = styled.div`
     display: flex;
     .box-1 {
       width: 100%;
+      height: 300px;
+      overflow-y: scroll;
       border: 1px solid;
     }
     .btn {
