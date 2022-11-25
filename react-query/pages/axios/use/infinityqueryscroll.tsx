@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -24,9 +24,25 @@ export default function InfinityqueryScroll() {
 
   const books = data?.pages;
 
-  const getmore = () => {
-    fetchNextPage();
-  };
+  // observer Ref
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  // lastDom Ref
+  const lastBookRef = useCallback(
+    (node: any) => {
+      if (isFetching) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((enteries) => {
+        if (enteries[0].isIntersecting && hasNextPage) {
+          console.log('Visible');
+          fetchNextPage();
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isFetching, hasNextPage]
+  );
 
   return (
     <Infinity>
@@ -47,14 +63,22 @@ export default function InfinityqueryScroll() {
               const docs = item.data.docs;
               return (
                 <Fragment key={idx}>
-                  {docs.map((book: any, idx: number) => (
-                    <p key={idx}>{book.title}</p>
-                  ))}
+                  {docs.map((book: any, idx: number) => {
+                    if (docs.length === idx + 1) {
+                      return (
+                        <p key={idx} ref={lastBookRef} className='123'>
+                          {book.title}
+                        </p>
+                      );
+                    } else {
+                      return <p key={idx}>{book.title}</p>;
+                    }
+                  })}
                 </Fragment>
               );
             })}
-          {isFetching && isFetchingNextPage && <div>FetchingMore...</div>}
         </div>
+        {isFetching && isFetchingNextPage && <div>FetchingMore...</div>}
       </div>
     </Infinity>
   );
@@ -71,7 +95,6 @@ const Infinity = styled.div`
     border-bottom: 1px solid;
   }
   .content {
-    display: flex;
     .box-1 {
       width: 100%;
       height: 300px;
