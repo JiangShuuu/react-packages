@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+const fetchData = ({ pageParam = 1 }) => {
+  return axios.get(`http://openlibrary.org/search.json?q=tests&limit=5&page=${pageParam}`);
+};
 
 export default function infinityquery() {
+  const { isLoading, isError, error, data, hasNextPage, fetchNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery(['books'], fetchData, {
+    staleTime: 10 * 1000,
+    refetchOnWindowFocus: false,
+    getNextPageParam: (lastPage, pages) => {
+      // 資料長度 return pageParam
+      if (pages[pages.length - 1].data.docs.length >= 5) {
+        return pages.length + 1;
+      } else {
+        return undefined;
+      }
+    }
+  });
+
+  const books = data?.pages;
+
+  const getmore = () => {
+    fetchNextPage();
+  };
+
   return (
     <Infinity>
       <main className='mains'>
@@ -12,7 +37,25 @@ export default function infinityquery() {
         </nav>
       </main>
       <div className='content'>
-        <div className='box-1'>123</div>
+        <div className='box-1'>
+          {isLoading && <h2>Loading...</h2>}
+          {isError && <h2>Error...</h2>}
+          {books &&
+            books.map((item: any, idx: number) => {
+              const docs = item.data.docs;
+              return (
+                <Fragment key={idx}>
+                  {docs.map((book: any, idx: number) => (
+                    <p key={idx}>{book.title}</p>
+                  ))}
+                </Fragment>
+              );
+            })}
+          <button disabled={!hasNextPage} onClick={getmore}>
+            Load More
+          </button>
+          <div>{isFetching && isFetchingNextPage ? 'Fetching...' : null}</div>
+        </div>
         <div className='box-2'>456</div>
       </div>
     </Infinity>
@@ -31,12 +74,14 @@ const Infinity = styled.div`
   }
   .content {
     display: flex;
-    border: 1px solid;
+
     .box-1 {
       flex-basis: 50%;
+      border: 1px solid;
     }
     .box-2 {
       flex-basis: 50%;
+      border: 1px solid;
     }
   }
 `;
