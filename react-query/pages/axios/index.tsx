@@ -32,6 +32,9 @@ export default function index() {
           <Link href='/axios/ssg'>Axios SSG</Link>
           <Link href='/axios/1'>Axios SSG & Path</Link>
         </nav>
+        <nav>
+          <Link href='/axios/use/infinityquery'>Axios useInfinityQuery</Link>
+        </nav>
         <h1>Axios Static Data</h1>
         <div>{data.name}</div>
       </main>
