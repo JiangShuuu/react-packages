@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useQuery, dehydrate, QueryClient } from '@tanstack/react-query';
 import { ParsedUrlQuery } from 'querystring';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 interface IParams extends ParsedUrlQuery {
   postId: string;
@@ -54,6 +55,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export default function path({ custmers }: any) {
   const router = useRouter();
   const { postId } = router.query as IParams;
+  console.log('123');
 
   const { data, isLoading, isError } = useQuery({
     // cache 名稱
@@ -69,6 +71,8 @@ export default function path({ custmers }: any) {
     // 切回換視窗即時更新
     refetchOnWindowFocus: true
   });
+
+  const [follow, setFollow] = useState(false);
 
   if (isLoading) {
     return <h1>isLoading</h1>;
