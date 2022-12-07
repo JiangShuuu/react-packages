@@ -1,27 +1,26 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 interface IFormInputs {
   firstName: string;
   age: number;
 }
 
-const schema = z.object({
-  firstName: z.string({ required_error: 'Name is required' }).max(5),
-  age: z.number()
-});
+const schema = yup
+  .object({
+    firstName: yup.string().required(),
+    age: yup.number().positive().integer().required()
+  })
+  .required();
 
-const requiredTest = schema.required();
-
-export default function Zod() {
+export default function App() {
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<IFormInputs>({
-    resolver: zodResolver(requiredTest)
+    resolver: yupResolver(schema)
   });
   const onSubmit = (data: IFormInputs) => console.log(data);
 
