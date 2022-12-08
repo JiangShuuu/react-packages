@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useFormI18n } from '../../plugins/formI18n';
+import { FormI18n } from '../../plugins/formI18n';
 import * as yup from 'yup';
 
 interface IFormInputs {
@@ -9,7 +9,7 @@ interface IFormInputs {
 }
 
 export default function App() {
-  const { t, toggleLanguage, language } = useFormI18n();
+  const { t, toggleLanguage, language } = FormI18n();
 
   const schemaI18n = yup.object({
     firstName: yup.string().required(`${t('不可空白')}`)

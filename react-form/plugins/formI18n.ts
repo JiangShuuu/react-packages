@@ -25,7 +25,7 @@ i18n
     }
   });
 
-export function useFormI18n () {
+export function FormI18n () {
   const { changeLanguage, language } = i18n;
   const { t } = useTranslation();
 
