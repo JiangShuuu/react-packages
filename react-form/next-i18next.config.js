@@ -3,4 +3,7 @@ module.exports = {
     defaultLocale: 'zh-Hant',
     locales: ['zh-Hant', 'zh-Hans'],
   },
+  fallbackLng: {
+    default: ['zh-Hant'],
+  },
 };
