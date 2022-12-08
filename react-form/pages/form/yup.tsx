@@ -38,14 +38,11 @@ export default function App() {
 
   console.log(language);
 
-  const firstN = t('不可空白', { hant });
-
   const schemaI18n = yup.object({
-    firstName: yup.string().required(firstN)
+    firstName: yup.string().required(`${t('不可空白')}`)
   });
 
   const changTest = language === 'en' ? 'hant' : 'en';
-  // const change = i18n.changeLanguage('hant');
 
   const {
     register,
@@ -67,7 +64,7 @@ export default function App() {
 
         <input type='submit' />
       </form>
-      <button onClick={() => changeLanguage(changTest)}>案我</button>
+      <button onClick={() => changeLanguage(changTest)}>{language}</button>
     </>
   );
 }
