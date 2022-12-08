@@ -7,12 +7,10 @@ interface IFormInputs {
   age: number;
 }
 
-const schema = yup
-  .object({
-    firstName: yup.string().required(),
-    age: yup.number().positive().integer().required()
-  })
-  .required();
+const schema = yup.object({
+  firstName: yup.string().required('嗨嗨'),
+  age: yup.number().positive().integer().required()
+});
 
 export default function App() {
   const {
