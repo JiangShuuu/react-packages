@@ -9,13 +9,11 @@ interface IFormInputs {
 }
 
 export default function App() {
-  const { t, changeLanguage, language } = useFormI18n();
+  const { t, toggleLanguage, language } = useFormI18n();
 
   const schemaI18n = yup.object({
     firstName: yup.string().required(`${t('不可空白')}`)
   });
-
-  const changTest = language === 'en' ? 'hant' : 'en';
 
   const {
     register,
@@ -37,7 +35,7 @@ export default function App() {
 
         <input type='submit' />
       </form>
-      <button onClick={() => changeLanguage(changTest)}>{language}</button>
+      <button onClick={toggleLanguage}>{language}</button>
     </>
   );
 }
