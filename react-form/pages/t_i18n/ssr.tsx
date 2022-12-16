@@ -31,8 +31,8 @@ export default function SsrPage({ customer }: any) {
   return (
     <>
       <div>{t('語言')}</div>
-      <p>customer.name : {t(`${customer.name}`)}</p>
-      <p>{JSON.stringify(customer)}</p>
+      <p>API資料姓名 : {t(`${customer.name}`)}</p>
+      <p>其他資料：{JSON.stringify(customer)}</p>
       <button onClick={() => onToggleLanguageClick(changeTo)}>{t('語言')}</button>
     </>
   );
