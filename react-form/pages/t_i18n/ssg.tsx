@@ -3,19 +3,22 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import axios from 'axios';
 
 export async function getStaticProps({ locale }: any) {
+  const { data } = await axios.get('https://swapi.dev/api/people/9');
+  console.log('hi', locale);
   return {
     props: {
+      customer: data,
       ...(await serverSideTranslations(locale || 'zh-Hant', ['common']))
-      // Will be passed to the page component as props
     }
   };
 }
 
-export default function I18n() {
+export default function I18n({ customer }: any) {
   const { t, i18n } = useTranslation('common');
-  console.log(i18n.language);
+
   const router = useRouter();
 
   const onToggleLanguageClick = (newLocale: string) => {
@@ -27,22 +30,10 @@ export default function I18n() {
 
   return (
     <>
-      <style jsx>{`
-        div {
-          display: flex;
-          flex-direction: column;
-        }
-      `}</style>
-      <h2>{t('關於我們')}</h2>
-      <h2>{t('語言')}</h2>
-      <div>
-        <Link href='/t_i18n/ssg' locale={changeTo}>
-          <button>Link切換</button>
-        </Link>
-        <p>
-          <button onClick={() => onToggleLanguageClick(changeTo)}>function切換</button>
-        </p>
-      </div>
+      <div>{t('語言')}</div>
+      <p>API資料姓名 : {t(`${customer.name}`)}</p>
+      <p>其他資料：{JSON.stringify(customer)}</p>
+      <button onClick={() => onToggleLanguageClick(changeTo)}>{t('語言')}</button>
     </>
   );
 }

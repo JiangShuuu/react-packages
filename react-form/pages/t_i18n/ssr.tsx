@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 export async function getServerSideProps({ locale, req, res }: GetServerSidePropsContext) {
   const { data } = await axios.get('https://swapi.dev/api/people/9');
-
+  console.log('hi', locale);
   return {
     props: {
       customer: data,
@@ -17,7 +17,9 @@ export async function getServerSideProps({ locale, req, res }: GetServerSideProp
 }
 
 export default function SsrPage({ customer }: any) {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+
+  console.log(t, i18n);
 
   const router = useRouter();
 
