@@ -19,8 +19,6 @@ export async function getServerSideProps({ locale, req, res }: GetServerSideProp
 export default function SsrPage({ customer }: any) {
   const { t, i18n } = useTranslation('common');
 
-  console.log(t, i18n);
-
   const router = useRouter();
 
   const onToggleLanguageClick = (newLocale: string) => {
