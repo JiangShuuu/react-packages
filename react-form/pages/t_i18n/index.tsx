@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation, initReactI18next } from 'react-i18next';
 import i18n from 'i18next';
+import zh_Hant from '../../public/locales/zh-Hant/common.json';
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -11,10 +12,7 @@ i18n.use(initReactI18next).init({
       }
     },
     tw: {
-      translation: {
-        about: '關於我們',
-        lang: '語言'
-      }
+      translation: zh_Hant
     }
   },
   lng: 'en',
