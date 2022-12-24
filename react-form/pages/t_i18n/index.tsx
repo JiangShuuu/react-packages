@@ -1,38 +1,40 @@
 import React from 'react';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { useTranslation, initReactI18next } from 'react-i18next';
+import i18n from 'i18next';
 
-export async function getStaticProps({ locale }: any) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale || 'zh-Hant', ['common']))
-      // Will be passed to the page component as props
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: {
+        about: 'aboutEn',
+        lang: 'langEn'
+      }
+    },
+    tw: {
+      translation: {
+        about: '關於我們',
+        lang: '語言'
+      }
     }
-  };
-}
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+
+  interpolation: {
+    escapeValue: false
+  }
+});
 
 export default function I18n() {
-  const { t, i18n } = useTranslation('common');
-  console.log(i18n.language);
-  const router = useRouter();
+  const { t, i18n } = useTranslation();
 
-  const onToggleLanguageClick = (newLocale: string) => {
-    const { pathname, asPath, query } = router;
-    router.push({ pathname, query }, asPath, { locale: newLocale });
-  };
-
-  const changeTo = router.locale === 'zh-Hant' ? 'zh-Hans' : 'zh-Hant';
+  const changeLang = i18n.language === 'tw' ? 'en' : 'tw';
 
   return (
     <>
-      <h2>{t('關於我們')}</h2>
-      <h2>{t('語言')}</h2>
-      <Link href='/t_i18n' locale={changeTo}>
-        <button>{t('語言', { changeTo })}</button>
-      </Link>
-      <button onClick={() => onToggleLanguageClick(changeTo)}>{t('語言')}</button>
+      <h2>{t('about')}</h2>
+      <h2>{t('lang')}</h2>
+      <button onClick={() => i18n.changeLanguage(changeLang)}>轉換</button>
     </>
   );
 }
