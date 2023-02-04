@@ -3,7 +3,9 @@ import Image from 'next/image';
 import { Inter } from '@next/font/google';
 import styles from '~/styles/Home.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { decrement, increment } from '~/store/counter';
+import { decrement, increment, incrementByAmount } from '~/store/counter';
+import { login, logout, User } from '~/store/auth';
+
 const inter = Inter({ subsets: ['latin'] });
 
 type Counter = {
@@ -12,10 +14,15 @@ type Counter = {
 
 type State = {
   counter: Counter;
+  auth: {
+    user: User;
+  };
 };
 
 export default function Home() {
   const count = useSelector((state: State) => state.counter.value);
+  const user = useSelector((state: State) => state.auth.user);
+  console.log(user);
   const dispatch = useDispatch();
 
   return (
@@ -38,7 +45,17 @@ export default function Home() {
               <button aria-label='Decrement value' onClick={() => dispatch(decrement())}>
                 Decrement
               </button>
+              <button aria-label='Decrement value' onClick={() => dispatch(incrementByAmount(234))}>
+                incrementByAmount
+              </button>
             </div>
+          </div>
+          <div>
+            {/* <span>{user}</span> */}
+            <p>{user && user.name}</p>
+            <h1>logout</h1>
+            <button onClick={() => dispatch(login({ name: 'john', phone: 123241 }))}>login</button>
+            <button onClick={() => dispatch(logout())}>logout</button>
           </div>
           <p>
             Get started by editing&nbsp;
