@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styles from '~/styles/Home.module.css';
-import { useSelector, useDispatch } from 'react-redux';
+
 import { decrement, increment, incrementByAmount } from '~/store/counter';
 import { login, logout, User, loginAsync } from '~/store/auth';
 import { useAppDispatch, useAppSelector, RootState } from '~/store/store';
