@@ -15,9 +15,7 @@ const initialState: CounterState = {
   status: 'idle',
 };
 
-export const loginAsync = createAsyncThunk('auth/fetchUser', async(num: number) => {
-  console.log(num)
-
+export const loginAsync = createAsyncThunk('auth/fetchUser', async() => {
   const { data } = await axios.post('https://express.jiangshuuu.com/signin', {
     email: 'user2@example.com',
     password: '12345678'

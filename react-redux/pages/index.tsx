@@ -2,19 +2,8 @@ import Head from 'next/head';
 import styles from '~/styles/Home.module.css';
 
 import { decrement, increment, incrementByAmount } from '~/store/counter';
-import { login, logout, User, loginAsync } from '~/store/auth';
+import { login, logout, loginAsync } from '~/store/auth';
 import { useAppDispatch, useAppSelector, RootState } from '~/store/store';
-
-type Counter = {
-  value: number;
-};
-
-type State = {
-  counter: Counter;
-  auth: {
-    user: User;
-  };
-};
 
 export default function Home() {
   const count = useAppSelector((state: RootState) => state.counter.value);
@@ -37,7 +26,7 @@ export default function Home() {
             <h1>logout</h1>
             <button onClick={() => dispatch(login({ name: 'john', phone: 123241 }))}>login</button>
             <button onClick={() => dispatch(logout())}>logout</button>
-            <button aria-label='Decrement value' onClick={() => dispatch(loginAsync(3))}>
+            <button aria-label='Decrement value' onClick={() => dispatch(loginAsync())}>
               loginAsync
             </button>
           </div>
