@@ -15,7 +15,9 @@ const initialState: CounterState = {
   status: 'idle',
 };
 
-export const loginAsync = createAsyncThunk('auth/fetchUser', async() => {
+export const loginAsync = createAsyncThunk('auth/fetchUser', async(num: number) => {
+  console.log(num)
+
   const { data } = await axios.post('https://express.jiangshuuu.com/signin', {
     email: 'user2@example.com',
     password: '12345678'
@@ -56,18 +58,5 @@ export const counterSlice = createSlice({
 })
 
 export const { login, logout } = counterSlice.actions
-
-// export const loginAsync = () => async (dispatch:any) => {
-//     try {
-//       const data = axios.post('https://express.jiangshuuu.com/signin', {
-//         email: 'user2@example.com',
-//         password: '12345678'
-//       });
-
-//       dispatch(login(data))
-//     } catch (err) {
-//       console.error(err)
-//     }
-// }
 
 export default counterSlice.reducer

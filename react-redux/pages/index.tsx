@@ -1,10 +1,9 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from '@next/font/google';
 import styles from '~/styles/Home.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { decrement, increment, incrementByAmount } from '~/store/counter';
 import { login, logout, User, loginAsync } from '~/store/auth';
+import { useAppDispatch, useAppSelector, RootState } from '~/store/store';
 
 type Counter = {
   value: number;
@@ -18,10 +17,10 @@ type State = {
 };
 
 export default function Home() {
-  const count = useSelector((state: State) => state.counter.value);
-  const user = useSelector((state: State) => state.auth.user);
+  const count = useAppSelector((state: RootState) => state.counter.value);
+  const user = useAppSelector((state: RootState) => state.auth.user);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -38,7 +37,7 @@ export default function Home() {
             <h1>logout</h1>
             <button onClick={() => dispatch(login({ name: 'john', phone: 123241 }))}>login</button>
             <button onClick={() => dispatch(logout())}>logout</button>
-            <button aria-label='Decrement value' onClick={() => dispatch(loginAsync())}>
+            <button aria-label='Decrement value' onClick={() => dispatch(loginAsync(3))}>
               loginAsync
             </button>
           </div>
