@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector, RootState } from '~/store/store';
 export default function Home() {
   const count = useAppSelector((state: RootState) => state.counter.value);
   const user = useAppSelector((state: RootState) => state.auth.user);
-
+  const status = useAppSelector((state: RootState) => state.auth.status);
   const dispatch = useAppDispatch();
 
   return (
@@ -23,6 +23,7 @@ export default function Home() {
         <div className={styles.description}>
           <div>
             <p>{user && user.name}</p>
+            <p>{status}</p>
             <h1>logout</h1>
             <button onClick={() => dispatch(login({ name: 'john', phone: 123241 }))}>login</button>
             <button onClick={() => dispatch(logout())}>logout</button>
