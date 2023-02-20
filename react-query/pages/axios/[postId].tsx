@@ -55,7 +55,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export default function path({ custmers }: any) {
   const router = useRouter();
   const { postId } = router.query as IParams;
-  console.log('123');
 
   const { data, isLoading, isError } = useQuery({
     // cache 名稱
