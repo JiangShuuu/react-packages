@@ -14,10 +14,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   // 自訂 data, 丟出後要在下方自訂props接住
   // const data = await queryClient.fetchQuery(['axios_ssr'], getData);
-
+  // const data = '123';
   // hydrate, 省去 props 步驟
   await queryClient.fetchQuery(['axios_ssr'], getData);
-
+  // console.log('hi', data);
   return {
     props: {
       // custmers: data
