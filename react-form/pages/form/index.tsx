@@ -2,30 +2,31 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 type Inputs = {
-  example: string;
-  exampleRequired: string;
+  firstName: string;
+  lastName: string;
 };
 
-export default function Form() {
+export default function MyForm() {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors }
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
-  console.log(watch('example')); // watch input value by passing the name of it
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+  };
+
+  console.log(watch('firstName'));
 
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input defaultValue='test' {...register('example')} />
-
-      <input {...register('exampleRequired', { required: true })} />
-
-      {errors.exampleRequired && <span>This field is required</span>}
-      <input type='submit' />
+      <input type='text' {...register('firstName', { required: true })} />
+      {errors.firstName && <span>This field is required</span>}
+      <input type='text' {...register('lastName', { required: true })} />
+      {errors.lastName && <span>This field is required</span>}
+      <button type='submit'>Submit</button>
     </form>
   );
 }
