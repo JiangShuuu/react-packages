@@ -18,7 +18,7 @@ export default function MyForm() {
     console.log(data);
   };
 
-  console.log(watch('firstName'));
+  console.log('watch', watch('firstName'));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
