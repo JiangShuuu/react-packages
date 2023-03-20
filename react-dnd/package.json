@@ -19,5 +19,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "4.9.4"
+  },
+  "devDependencies": {
+    "@types/react-motion": "^0.0.33",
+    "immutability-helper": "^3.1.1",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-motion": "^0.5.2"
   }
 }
