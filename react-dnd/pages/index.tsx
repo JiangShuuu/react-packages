@@ -1,4 +1,4 @@
-import Container from "@/component/Container"
+import {Container} from "../component/Container"
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 

@@ -19,8 +19,7 @@ export interface CardProps {
   id: any
   text: string
   index: number
-  moveCard: (dragIndex: number, hoverIndex: number) => void,
-  num: number
+  moveCard: (dragIndex: number, hoverIndex: number) => void
 }
 
 interface DragItem {
@@ -29,9 +28,7 @@ interface DragItem {
   type: string
 }
 
-// id={card.id} index={card.order} text={card.text} moveCard={moveCard} style={
-
-const Card: FC<CardProps> = ({ id, text, index, moveCard, num } ) => {
+export const Card: FC<CardProps> = ({ id, text, index, moveCard }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [{ handlerId }, drop] = useDrop<
     DragItem,
@@ -107,10 +104,8 @@ const Card: FC<CardProps> = ({ id, text, index, moveCard, num } ) => {
   const opacity = isDragging ? 0 : 1
   drag(drop(ref))
   return (
-    <div ref={ref} style={{ ...style, opacity, transform: 'translate3d(0, ' + num + 'px, 0)' }} data-handler-id={handlerId}>
+    <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
       {text}
     </div>
   )
 }
-
-export default Card;
