@@ -14,16 +14,16 @@ const TaskList = styled.div`
   padding: 8px;
 `
 
-export default function Column({ column, tasks }) {
-  console.log('123', tasks)
+export default function Column({ column, data }) {
+  const t = data.map((item) => item.content)
   return (
     <Container>
       <Title>{column.title}</Title>
-      {/* <TaskList>
-        {tasks.map((task) => (
+      <TaskList>
+        {data.map((task) => (
           <Task key={task.id} task={task} />
         ))}
-      </TaskList> */}
+      </TaskList>
     </Container>
   )
 }
