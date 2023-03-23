@@ -27,7 +27,6 @@ function App() {
 
     // 獲取 columns 物件
     const column = lists.columns[source.droppableId]
-    console.log(column)
 
     // 建立新 Array
     const newTaskIds = Array.from(column.taskIds)
