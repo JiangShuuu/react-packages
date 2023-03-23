@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import initialData from '../initial-data'
-import Column from './column'
+import Column from './Column'
 
 function App() {
   const [lists, setLists] = useState(initialData)
