@@ -1,7 +1,6 @@
-import {Container} from "../component/Container"
+import { Container } from '../component/Dnd'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-
 
 export default function Home() {
   return (
