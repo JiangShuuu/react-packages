@@ -3,6 +3,8 @@ import initialData from '../initial-data'
 import Column from './Column'
 import { DragDropContext } from 'react-beautiful-dnd'
 
+// https://egghead.io/lessons/react-persist-list-reordering-with-react-beautiful-dnd-using-the-ondragend-callback
+
 function App() {
   const [lists, setLists] = useState(initialData)
 
