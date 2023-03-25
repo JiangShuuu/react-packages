@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Draggable } from 'react-beautiful-dnd'
-// import Droppable from './StrictModeDroppable'
 
 const Container = styled.div`
   border: 1px solid lightgrey;
