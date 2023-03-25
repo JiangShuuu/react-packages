@@ -38,7 +38,7 @@ export default function Index02() {
   }
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Column key={'column-1'} column={'column-1'} data={lists} />
+      <Column key={'column-1'} data={lists} />
     </DragDropContext>
   )
 }

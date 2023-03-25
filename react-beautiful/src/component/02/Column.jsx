@@ -15,10 +15,10 @@ const TaskList = styled.div`
   padding: 8px;
 `
 
-export default function Column({ column, data }) {
+export default function Column({ data }) {
   return (
     <Container>
-      <Droppable droppableId={column}>
+      <Droppable droppableId={'hi'}>
         {(provided) => (
           <TaskList ref={provided.innerRef} {...provided.droppableProps}>
             {data.map((task, idx) => (
