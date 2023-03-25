@@ -12,8 +12,6 @@ export default function Index02() {
     // destination 目標物件, source 拖拉物件, source的id
     const { destination, source, draggableId } = result
 
-    console.log(destination, source, draggableId)
-
     // 沒目標 return
     if (!destination) {
       return
@@ -27,37 +25,16 @@ export default function Index02() {
       return
     }
 
-    // 獲取 columns 物件
-    // const column = lists.columns[source.droppableId]
-    // const column = lists.columns
-
     // 建立新 Array
-    console.log('0', lists)
-    const newTaskIds = Array.from(lists)
-    console.log('1', newTaskIds)
+    const newArr = [...lists]
+
+    const draggableItem = newArr.find((item) => item.id === draggableId)
     // 剪下拖拉的位子
-    newTaskIds.splice(source.index, 1)
+    newArr.splice(source.index, 1)
     // 插入目標的位子
-    newTaskIds.splice(destination.index, 0, draggableId)
+    newArr.splice(destination.index, 0, draggableItem)
 
-    console.log(source.index)
-
-    // 建立新的 column, 取代舊的 taskIds
-    // const newColumn = {
-    //   ...column,
-    //   taskIds: newTaskIds,
-    // }
-
-    // 建立新的 state, 取代舊的 columns
-    // const newState = {
-    //   ...lists,
-    //   columns: {
-    //     ...lists.columns,
-    //     [newColumn.id]: newColumn,
-    //   },
-    // }
-
-    // setLists(newState)
+    setLists(newArr)
   }
   return (
     <DragDropContext onDragEnd={onDragEnd}>
