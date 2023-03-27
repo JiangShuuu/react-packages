@@ -12,10 +12,13 @@ const Container = styled.div`
 
 function Index01() {
   const [lists, setLists] = useState(initialData)
+  const [home, setHome] = useState()
 
   const onDragEnd = (result) => {
     document.body.style.color = 'inherit'
     document.body.style.background = 'inherit'
+
+    setHome(null)
 
     // destination 目標物件, source 拖拉物件, source的id
     const { destination, source, draggableId } = result
@@ -97,6 +100,9 @@ function Index01() {
   const onDragStart = (result) => {
     document.body.style.color = 'orange'
     document.body.style.transition = 'background-color 0.2s ease'
+
+    const homeIndex = lists.columnOrder.indexOf(result.source.draggableId)
+    setHome(homeIndex)
   }
 
   const onDragUpdate = (result) => {
@@ -114,10 +120,20 @@ function Index01() {
       onDragEnd={onDragEnd}
     >
       <Container>
-        {lists.columnOrder.map((columnId) => {
+        {lists.columnOrder.map((columnId, index) => {
           const column = lists.columns[columnId]
           const tasks = column.taskIds.map((taskId) => lists.tasks[taskId])
-          return <Column key={column.id} column={column} data={tasks} />
+
+          const isDropDisabled = index < home
+
+          return (
+            <Column
+              key={column.id}
+              column={column}
+              data={tasks}
+              isDropDisabled={isDropDisabled}
+            />
+          )
         })}
       </Container>
     </DragDropContext>

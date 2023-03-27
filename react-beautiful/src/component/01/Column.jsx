@@ -21,12 +21,16 @@ const TaskList = styled.div`
   min-height: 100px;
 `
 
-export default function Column({ column, data }) {
+export default function Column({ column, data, isDropDisabled }) {
   return (
     <Container>
       <Title>{column.title}</Title>
       <p>{column.id}</p>
-      <Droppable droppableId={column.id}>
+      <Droppable
+        droppableId={column.id}
+        isDropDisabled={isDropDisabled}
+        // type={column.id === 'column-3' ? 'done' : 'active'}
+      >
         {(provided, snapshot) => (
           <TaskList
             ref={provided.innerRef}
