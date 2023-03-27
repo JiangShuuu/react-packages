@@ -9,6 +9,9 @@ function Index01() {
   const [lists, setLists] = useState(initialData)
 
   const onDragEnd = (result) => {
+    document.body.style.color = 'inherit'
+    document.body.style.background = 'inherit'
+
     // destination 目標物件, source 拖拉物件, source的id
     const { destination, source, draggableId } = result
 
@@ -52,8 +55,26 @@ function Index01() {
 
     setLists(newState)
   }
+
+  const onDragStart = (result) => {
+    document.body.style.color = 'orange'
+    document.body.style.transition = 'background-color 0.2s ease'
+  }
+
+  const onDragUpdate = (result) => {
+    const { destination } = result
+    const opacity = destination
+      ? destination.index / Object.keys(lists).length
+      : 0
+    document.body.style.backgroundColor = `rgba(153, 141, 217, ${opacity})`
+  }
+
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext
+      onDragStart={onDragStart}
+      onDragUpdate={onDragUpdate}
+      onDragEnd={onDragEnd}
+    >
       {lists.columnOrder.map((columnId) => {
         const column = lists.columns[columnId]
         const tasks = column.taskIds.map((taskId) => lists.tasks[taskId])
