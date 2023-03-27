@@ -2,8 +2,13 @@ import { useState } from 'react'
 import initialData from '../component/01/initial-data'
 import Column from '../component/01/Column'
 import { DragDropContext } from 'react-beautiful-dnd'
+import styled from 'styled-components'
 
 // https://egghead.io/lessons/react-persist-list-reordering-with-react-beautiful-dnd-using-the-ondragend-callback
+
+const Container = styled.div`
+  display: flex;
+`
 
 function Index01() {
   const [lists, setLists] = useState(initialData)
@@ -29,27 +34,60 @@ function Index01() {
     }
 
     // 獲取 columns 物件
-    const column = lists.columns[source.droppableId]
+    // const column = lists.columns[source.droppableId]
+    const start = lists.columns[source.droppableId]
+    const finish = lists.columns[destination.droppableId]
 
-    // 建立新 Array
-    const newTaskIds = Array.from(column.taskIds)
-    // 剪下拖拉的位子
-    newTaskIds.splice(source.index, 1)
-    // 插入目標的位子
-    newTaskIds.splice(destination.index, 0, draggableId)
+    if (start === finish) {
+      // 建立新 Array
+      const newTaskIds = Array.from(start.taskIds)
+      // 剪下拖拉的位子
+      newTaskIds.splice(source.index, 1)
+      // 插入目標的位子
+      newTaskIds.splice(destination.index, 0, draggableId)
 
-    // 建立新的 column, 取代舊的 taskIds
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds,
+      // 建立新的 column, 取代舊的 taskIds
+      const newColumn = {
+        ...start,
+        taskIds: newTaskIds,
+      }
+
+      // 建立新的 state, 取代舊的 columns
+      const newState = {
+        ...lists,
+        columns: {
+          ...lists.columns,
+          [newColumn.id]: newColumn,
+        },
+      }
+
+      setLists(newState)
+      return
     }
 
-    // 建立新的 state, 取代舊的 columns
+    // Moving from one list to another
+    const startTaskIds = Array.from(start.taskIds)
+    startTaskIds.splice(source.index, 1)
+
+    const newStart = {
+      ...start,
+      taskIds: startTaskIds,
+    }
+
+    const finishTaskIds = Array.from(finish.taskIds)
+    finishTaskIds.splice(destination.index, 0, draggableId)
+
+    const newFinish = {
+      ...finish,
+      taskIds: finishTaskIds,
+    }
+
     const newState = {
       ...lists,
       columns: {
         ...lists.columns,
-        [newColumn.id]: newColumn,
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
       },
     }
 
@@ -75,11 +113,13 @@ function Index01() {
       onDragUpdate={onDragUpdate}
       onDragEnd={onDragEnd}
     >
-      {lists.columnOrder.map((columnId) => {
-        const column = lists.columns[columnId]
-        const tasks = column.taskIds.map((taskId) => lists.tasks[taskId])
-        return <Column key={column.id} column={column} data={tasks} />
-      })}
+      <Container>
+        {lists.columnOrder.map((columnId) => {
+          const column = lists.columns[columnId]
+          const tasks = column.taskIds.map((taskId) => lists.tasks[taskId])
+          return <Column key={column.id} column={column} data={tasks} />
+        })}
+      </Container>
     </DragDropContext>
   )
 }
