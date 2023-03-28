@@ -118,6 +118,7 @@ function Index03() {
       onDragStart={onDragStart}
       onDragUpdate={onDragUpdate}
       onDragEnd={onDragEnd}
+      direction="horizontal"
     >
       <Container>
         {lists.columnOrder.map((columnId, index) => {

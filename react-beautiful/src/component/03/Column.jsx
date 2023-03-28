@@ -5,10 +5,10 @@ import Droppable from '../../StrictModeDroppable'
 
 const Container = styled.div`
   margin: 8px;
-  border: 1px solid lightgrey;
+  border: 1px solid black;
   border-radius: 2px;
   display: flex;
-  flex-direction: column;
+  width: 300px;
 `
 const Title = styled.h3`
   padding: 8px;
@@ -19,6 +19,7 @@ const TaskList = styled.div`
   flex-grow: 1;
 
   display: flex;
+  flex-wrap: wrap;
 `
 
 export default function Column({ column, data, isDropDisabled }) {
@@ -29,7 +30,8 @@ export default function Column({ column, data, isDropDisabled }) {
       <Droppable
         droppableId={column.id}
         isDropDisabled={isDropDisabled}
-        direction="horizontal"
+        direction="vertical"
+        // mode="virtual"
         // type={column.id === 'column-3' ? 'done' : 'active'}
       >
         {(provided, snapshot) => (
