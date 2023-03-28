@@ -6,101 +6,17 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.container {
+  background: white;
 }
-
-* {
-  box-sizing: border-box;
+.container.hover {
+  background: aliceBlue;
 }
-
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  width: 100%;
-  height: 100vh;
-  justify-content: center;
+.box {
+  background: lightblue;
+  cursor: grab;
 }
-
-nav a {
-  margin: 0 .5rem;
-  padding: 2px;
-  border: 1px solid;
-}
-
-header a {
-  margin: 0 .5rem;
-  padding: 2px;
-  border: 1px solid blue;
-}
-
-a {
-  transition: .3s;
-}
-
-a:hover {
-  background: blue;
-  color: white;
-}
-
-.content {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 1rem;
-}
-
-.input {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.item {
-  border: 1px solid;
-  border-radius: 10px;
-  text-align: center;
-  margin: 0.5rem 0;
-  line-height: 0px;
-}
-
-.App {
-  font-family: sans-serif;
-  text-align: center;
-}
-
-.salmon {
-  background-color: salmon;
-}
-
-.yellow_100 {
-  background-color: #eded00;
-}
-
-.yellow_400 {
-  background-color: #c9c900;
-}
-
-.yellow_700 {
-  background-color: #abab00;
-}
-
-.green_700 {
-  background-color: #2f7d4c;
-}
-
-.blue_700 {
-  background-color: blue;
-}
-
-
-.list_item {
-  border-bottom: 1px solid;
+.box.dragging {
+  background: lightgreen;
+  cursor: grabbing;
 }
