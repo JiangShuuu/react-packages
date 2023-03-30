@@ -9,6 +9,8 @@ function getMockItems() {
 export default function Index() {
   const [items, setItems] = useState(getMockItems)
 
+  console.log(items)
+
   return (
     <div style={{ maxWidth: 400, margin: '30px auto' }}>
       <SortableList
